@@ -69,3 +69,12 @@
 .create-playlist:hover {
     background-color: #333;
 }
+
+.create-playlist:disabled {
+    background-color: #ccc;
+    /* 비활성화 시 배경색 변경 */
+    cursor: not-allowed;
+    /* 비활성화 시 마우스 커서 변경 */
+    opacity: 0.5;
+    /* 투명도 조절 */
+}
