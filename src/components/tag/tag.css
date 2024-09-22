@@ -1,0 +1,71 @@
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    /* 태그들이 줄바꿈되도록 설정 */
+    justify-content: center;
+    /* 태그들을 중앙 정렬 */
+    gap: 36px 120px;
+    /* 태그 간의 간격을 설정 */
+    padding: 100px;
+    max-width: 80%;
+    margin: 0 auto;
+    background-color: #F6F6F6;
+    padding-bottom: 100px;
+}
+
+.tag-item {
+    display: inline-block;
+    /* 텍스트 길이에 맞게 너비가 조정됨 */
+    padding: 20px 24px;
+    background-color: #FFFFFF;
+    border: 1px solid #E7E7E7;
+    border-radius: 12px;
+    font-size: 20px;
+    color: #919191;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    white-space: nowrap;
+    /* 긴 텍스트가 줄바꿈되지 않도록 설정 */
+}
+
+.tag-item:hover {
+    background-color: #E7E7E7;
+}
+
+.create-playlist {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 14px 100px;
+    font-size: 1rem;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1;
+}
+
+.create-playlist img {
+    margin-right: 12px;
+    /* 이미지와 텍스트 사이 간격 */
+    width: 32px;
+    /* 이미지 크기 조정 */
+    height: 32px;
+    /* 이미지 크기 조정 */
+    display: inline-block;
+    /* 이미지도 인라인 박스 */
+    vertical-align: middle;
+    /* 이미지가 텍스트와 수직 정렬되도록 설정 */
+}
+
+.create-playlist:hover {
+    background-color: #333;
+}
