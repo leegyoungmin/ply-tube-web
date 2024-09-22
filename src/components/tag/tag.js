@@ -1,26 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './tag.css';
 
 import { useNavigate } from 'react-router-dom';
 
-
-const tagData = [
-    { name: "태연" },
-    { name: "Get Up" },
-    { name: "NewJeans" },
-    { name: "I'm in love" },
-    { name: "Candy for you" },
-    { name: "로시" },
-    { name: "태연" },
-    { name: "Get Up" },
-    { name: "NewJeans" },
-    { name: "I'm in love" },
-    { name: "Candy for you Candy for you Candy for you Candy for you" },
-    { name: "태연" },
-    { name: "Get Up" },
-    { name: "NewJeans" },
-    { name: "I'm in love" },
-];
+//43.203.164.87:8000
 
 const musicListData = {
     "태연": ["Something New - 태연", "I - 태연"],
@@ -55,10 +38,10 @@ function TagCloud() {
         // 선택된 태그와 관련된 음악 목록 생성
         const selectedKeywords = Object.keys(selectedTags);
         const keywordList = selectedKeywords.flatMap(index => {
-            return tagData[index].name;
+            return tags[index].name;
         })
         const musicList = selectedKeywords.flatMap(index => {
-            const tagName = tagData[index].name; // 인덱스를 사용하여 태그 이름을 가져옴
+            const tagName = tags[index].name; // 인덱스를 사용하여 태그 이름을 가져옴
             return musicListData[tagName] || []; // 태그 이름으로 musicListData에서 음악 목록 가져옴
         });
 
@@ -70,7 +53,23 @@ function TagCloud() {
         navigate('/result', { state: { keywordList, musicList } });
     };
 
+    const [tags, setTag] = useState([]);
     const [selectedTags, setSelectedTags] = useState({}); // 태그별 선택 상태와 색상 관리
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://43.203.164.87:8000/random-items/');
+                const result = await response.json();
+                console.log(result);
+                setTag(result['keywords'])
+            } catch (error) {
+                console.error('Error fetching data : ', error);
+            }
+        }
+
+        fetchData();
+    }, []);
 
     const handleTagClick = (tag) => {
         if (selectedTags[tag]) {
@@ -96,17 +95,17 @@ function TagCloud() {
 
     return (
         <div className="tag-cloud">
-            {tagData.map((tag, index) => (
+            {tags.map((tag, index) => (
                 <button
                     key={index}
-                    className={`tag-item ${selectedTags[index] ? 'selected' : ''}`}
+                    className={`tag-item ${selectedTags[tag] ? 'selected' : ''}`}
                     style={{
-                        backgroundColor: selectedTags[index]?.backgroundColor || '#FFFFFF',
-                        borderColor: selectedTags[index]?.borderColor || '#E7E7E7',
+                        backgroundColor: selectedTags[tag]?.backgroundColor || '#FFFFFF',
+                        borderColor: selectedTags[tag]?.borderColor || '#E7E7E7',
                     }}
-                    onClick={() => handleTagClick(index)}
+                    onClick={() => handleTagClick(tag)}
                 >
-                    {tag.name}
+                    {tag}
                 </button>
             ))}
             <button className='create-playlist' onClick={navigateToResult}>
